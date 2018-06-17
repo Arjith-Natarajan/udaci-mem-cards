@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": ["babel", "react", "import-order-autofix"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prefer-stateless-function": 1,
+    "semi": [2, "never"],
+    "no-use-before-define": [2, { "variables": false }],
+    "import-order-autofix/order": 2
+  }
+}
