@@ -1,22 +1,9 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import Root from './components/Root'
+import configureStore from './configureStore'
 
-const App = () => (
-  <View style={styles.container}>
-    <Text style={styles.text}>Shake your phone to open the developer menu.</Text>
-  </View>
-)
+const store = configureStore()
+
+const App = () => <Root store={store} />
 
 export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 20,
-  },
-})
