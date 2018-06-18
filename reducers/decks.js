@@ -7,7 +7,7 @@ const byId = (state = {}, action) => {
       return state
   }
 }
-const allIds = (state = ['foo', 'bar'], action) => {
+const allIds = (state = [], action) => {
   switch (action.type) {
     case 'DO_SOMETHING':
     default:

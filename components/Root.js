@@ -1,7 +1,19 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { connect } from 'react-redux'
+import { View, Text } from 'react-native'
+import AddNewDeck from './decks/AddNewDeck'
 
-const Root = () => <Text>Hello lorem</Text>
+const Root = () => (
+  <View>
+    <Text style={styles.text}>Hello World</Text>
+    <AddNewDeck />
+  </View>
+)
 
-export default connect()(Root)
+const styles = {
+  text: {
+    fontSize: 30,
+    color: '#f010fe',
+  },
+}
+
+export default Root

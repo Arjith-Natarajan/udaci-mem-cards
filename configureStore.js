@@ -11,7 +11,7 @@ const configureStore = () => {
     middlewares.push(createLogger())
   }
   const preloadedState = initialState
-  return createStore(reducer, preloadedState, composeWithDevTools(applyMiddleware(...middlewares)))
+  return createStore(reducer, composeWithDevTools(applyMiddleware(...middlewares)))
 }
 
 export default configureStore
