@@ -1,12 +1,7 @@
 import React from 'react'
 import { Text } from 'react-native'
+import { connect } from 'react-redux'
 
-const Root = () => (
-  <Text>
-    Hello Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore praesentium accusamus
-    quae numquam cum ipsam assumenda asperiores voluptas reiciendis maiores ex, aliquid optio. Iste
-    minima aut obcaecati, modi. Corporis, dicta.
-  </Text>
-)
+const Root = () => <Text>Hello lorem</Text>
 
-export default Root
+export default connect()(Root)
