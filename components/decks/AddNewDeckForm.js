@@ -14,6 +14,7 @@ class AddNewDeckForm extends Component {
   onSubmitHandler = () => {
     const value = this.form.getValue()
     Alert.alert(JSON.stringify(value))
+    this.props.onSubmitForm(value)
   }
   render() {
     return (

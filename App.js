@@ -1,13 +1,16 @@
 import React from 'react'
+import { ActivityIndicator } from 'react-native'
 import { Provider } from 'react-redux'
 import Root from './components/Root'
 import configureStore from './configureStore'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const store = configureStore()
-
+const { persistor, store } = configureStore()
 const App = () => (
   <Provider store={store}>
-    <Root />
+    <PersistGate loading={<ActivityIndicator size="large" color="#0000ff" />} persistor={persistor}>
+      <Root />
+    </PersistGate>
   </Provider>
 )
 

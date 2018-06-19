@@ -1,7 +1,13 @@
 import { combineReducers } from 'redux'
+import { ADD_NEW_DECK } from '../actions/actionTypes'
 
-const byId = (state = {}, action) => {
+const byId = (state = { some: 'state' }, action) => {
   switch (action.type) {
+    case ADD_NEW_DECK:
+      return {
+        ...state,
+        [action.payload.deckId]: action.payload,
+      }
     case 'DO_SOMETHING':
     default:
       return state
@@ -9,6 +15,8 @@ const byId = (state = {}, action) => {
 }
 const allIds = (state = [], action) => {
   switch (action.type) {
+    case ADD_NEW_DECK:
+      return [...state, action.payload.deckId]
     case 'DO_SOMETHING':
     default:
       return state
