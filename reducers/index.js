@@ -1,8 +1,20 @@
-import { combineReducers } from 'redux'
-import cards from './cards'
-import decks from './decks'
-import scorePercent from './scorePercent'
+import { RECEIVE_ENTRIES, ADD_ENTRY } from '../actions'
 
-const reducer = combineReducers({ cards, decks, scorePercent })
+function entries (state = {}, action) {
+  switch (action.type) {
+    case RECEIVE_ENTRIES :
+      return {
+        ...state,
+        ...action.entries,
+      }
+    case ADD_ENTRY :
+      return {
+        ...state,
+        ...action.entry
+      }
+    default :
+      return state
+  }
+}
 
-export default reducer
+export default entries
