@@ -26,6 +26,7 @@ const RootView = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
+    headerMode: 'screen',
   },
 )
 

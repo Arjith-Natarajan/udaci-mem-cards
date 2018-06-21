@@ -1,16 +1,33 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, StyleSheet, LayoutAnimation } from 'react-native'
 import ActionButton from 'react-native-action-button'
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
-import { secondary, secondaryLight, white } from '../../utils/colors'
+import { primary, primaryLight, secondary, secondaryLight, white } from '../../utils/colors'
 import { getDecksList } from '../../reducers/decks'
 
 const mapStateToProps = state => ({
   allDecks: getDecksList(state.decks),
 })
 
+const Title = ({ ...props }) => (
+  <View {...props}>
+    <Text style={styles.headerTitleStyle}>
+      <MaterialCommunityIcons name="cards-outline" size={30} /> UdaciCards
+    </Text>
+  </View>
+)
+
 class ListDecks extends Component {
+  static navigationOptions = {
+    headerTitle: <Title />,
+    headerStyle: {
+      backgroundColor: primary,
+      height: 30,
+      justifyContent: 'center',
+    },
+    headerPressColorAndroid: primaryLight,
+  }
   state = {
     isActionButtonVisible: true,
   }
@@ -82,6 +99,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 0,
+  },
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    alignItems: 'center',
+    color: primaryLight,
+    fontSize: 25,
+    marginTop: 10,
+    marginBottom: 20,
   },
 })
 
