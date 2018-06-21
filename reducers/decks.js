@@ -26,3 +26,6 @@ const allIds = (state = [], action) => {
 const decks = combineReducers({ allIds, byId })
 
 export default decks
+
+// Selectors
+export const getDecksList = state => state.allIds.map(id => state.byId[id])
