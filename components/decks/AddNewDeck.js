@@ -8,10 +8,15 @@ import AddNewDeckForm from './AddNewDeckForm'
 class AddNewDeck extends Component {
   componentDidMount() {}
   render() {
-    const { onCreateDeck } = this.props
+    const { onCreateDeck, navigation } = this.props
     return (
       <View>
-        <AddNewDeckForm onSubmitForm={deckName => onCreateDeck(deckName)} />
+        <AddNewDeckForm
+          onSubmitForm={(deckName) => {
+            onCreateDeck(deckName)
+            navigation.popToTop()
+          }}
+        />
       </View>
     )
   }
