@@ -22,11 +22,12 @@ class AddNewCard extends Component {
   componentDidMount() {}
   render() {
     const { onCreateCard, navigation } = this.props
+    const deckId = navigation.getParam('deckId', 'NO-ID')
     return (
       <View>
         <AddNewCardForm
           onSubmitForm={(formPayload) => {
-            onCreateCard(formPayload)
+            onCreateCard({ ...formPayload, deckId })
             navigation.popToTop()
           }}
         />

@@ -4,9 +4,9 @@ import { createStackNavigator } from 'react-navigation'
 import { Constants } from 'expo'
 import { primaryDark } from '../utils/colors'
 import AddNewDeck from './decks/AddNewDeck'
+import AddNewCard from './cards/AddNewCard'
 import ListDecks from './decks/ListDecks'
 import DeckDetail from './decks/DeckDetail'
-
 
 const Root = () => (
   <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -26,6 +26,7 @@ const RootView = createStackNavigator(
     Home: ListDecks,
     AddDeck: AddNewDeck,
     DeckDetailScreen: DeckDetail,
+    AddCard: AddNewCard,
   },
   {
     initialRouteName: 'Home',

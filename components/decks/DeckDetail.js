@@ -22,7 +22,7 @@ class DeckDetail extends Component {
     },
   })
   onPressAddCard = (deckId) => {
-    console.log(deck)
+    this.props.navigation.navigate('AddCard', { deckId })
   }
   render() {
     const { deck } = this.props
