@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 // import { byId } from './reducers/decks'
-import initialState from './storage'
+// import initialState from './storage'
 
 const persistConfig = {
   key: 'root',
@@ -21,8 +21,14 @@ const configureStore = () => {
   if (process.env.NODE_ENV !== 'production') {
     middlewares.push(createLogger())
   }
-  const store = createStore(persistedReducer,initialState, composeWithDevTools(applyMiddleware(...middlewares)))
+  const store = createStore(
+    persistedReducer,
+    // initialState,
+    composeWithDevTools(applyMiddleware(...middlewares)),
+  )
   const persistor = persistStore(store)
+  // persistor.purge()
+  // console.log('PURGED!!!')
   return { store, persistor }
 }
 
