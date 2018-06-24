@@ -13,7 +13,7 @@ import {
   altDark,
 } from '../../utils/colors'
 import { getDeckById } from '../../reducers/decks'
-import { answerCorrectly, answerWrongly } from '../../actions/card'
+import { answerCorrectly, answerWrongly, resetScore } from '../../actions/card'
 import { fetchCardsByDeck } from '../../reducers/cards'
 import { getNextObj, computeScore } from '../../utils/helpers'
 
@@ -44,7 +44,8 @@ class Quiz extends Component {
   }
 
   componentWillMount() {
-    const { cardDetailList } = this.props
+    const { cardDetailList, resetScore } = this.props
+    resetScore()
     this.setState({ currentQuestion: getNextObj(cardDetailList, null) })
   }
 
@@ -134,5 +135,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   mapStateToProps,
-  { answerCorrectly, answerWrongly },
+  { answerCorrectly, answerWrongly, resetScore },
 )(Quiz)
