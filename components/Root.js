@@ -3,7 +3,8 @@ import { View, StatusBar } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { Constants } from 'expo'
 import { primaryDark } from '../utils/colors'
-import AddNewDeck from './decks/AddNewDeck'
+// import AddNewDeck from './decks/AddNewDeck'
+import AddNewCard from './cards/AddNewCard'
 import ListDecks from './decks/ListDecks'
 
 const Root = () => (
@@ -22,7 +23,7 @@ const AppStatusBar = (backgroundColor, ...props) => (
 const RootView = createStackNavigator(
   {
     Home: ListDecks,
-    AddDeck: AddNewDeck,
+    AddDeck: AddNewCard,
   },
   {
     initialRouteName: 'Home',

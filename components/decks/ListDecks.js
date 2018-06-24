@@ -23,8 +23,7 @@ class ListDecks extends Component {
     headerTitle: <Title />,
     headerStyle: {
       backgroundColor: primary,
-      height: 30,
-      justifyContent: 'center',
+      height: 40,
     },
     headerPressColorAndroid: primaryLight,
   }
@@ -107,6 +106,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 10,
     marginBottom: 20,
+    padding: 5,
+    textShadowColor: white
   },
 })
 
