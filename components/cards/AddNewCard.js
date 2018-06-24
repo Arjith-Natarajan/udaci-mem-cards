@@ -8,7 +8,7 @@ import AddNewCardForm from './AddNewCardForm'
 
 class AddNewCard extends Component {
   static navigationOptions = {
-    title: 'Your New Card',
+    title: 'New Card',
     headerStyle: {
       backgroundColor: primary,
     },
