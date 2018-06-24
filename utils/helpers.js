@@ -37,4 +37,4 @@ export const getPreviousObj = (o, id) => {
 }
 
 export const computeScore = (crctlyAnsweredQuestions, totalQuestions) =>
-  ((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(3)
+  `${((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(3)} %`

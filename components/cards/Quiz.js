@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
   const deckDetails = getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID'))
   return {
     cardDetailList: fetchCardsByDeck(state.cards, deckDetails.cardsList),
-    score: computeScore(state.noOfCorrectAnswers, deckDetails.cardsList.length),
+    score: state.noOfCorrectAnswers,
     totalQuestions: deckDetails.cardsList.length,
   }
 }
@@ -94,8 +94,10 @@ class Quiz extends Component {
         </View>
       </View>
     ) : (
-      <View style={styles.container}>
-        <Text style={[styles.deckTitle, { alignSelf: 'center' }]}>Your Score : {score} %</Text>
+      <View style={[styles.container, { alignItems: 'center' }]}>
+        <Text style={styles.deckTitle}>Your Score : {computeScore(score, totalQuestions)}</Text>
+        <Text style={styles.deckSubtitle}> Total Question : {totalQuestions} </Text>
+        <Text style={styles.deckSubtitle}> Answered Correctly : {score} </Text>
       </View>
     )
   }
