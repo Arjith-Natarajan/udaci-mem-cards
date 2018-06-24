@@ -63,8 +63,9 @@ class ListDecks extends Component {
     // Update your scroll position
     this._listViewOffset = currentOffset
   }
-  onPressCard = () => {
+  onPressCard = (item) => {
     console.log('Pressed')
+    this.props.navigation.navigate('DeckDetailScreen',{...item})
   }
   render() {
     const { allDecks } = this.props
@@ -79,7 +80,7 @@ class ListDecks extends Component {
           data={allDecks}
           renderItem={({ item }) => (
             <View>
-              <TouchableOpacity onPress={this.onPressCard}>
+              <TouchableOpacity onPress={() => this.onPressCard(item)}>
                 <Card
                   title={item.deckName}
                   featuredTitle={`Cards : ${item.cardsList.length}`}
