@@ -22,6 +22,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     cardDetailList: fetchCardsByDeck(state.cards, deckDetails.cardsList),
     score: computeScore(state.noOfCorrectAnswers, deckDetails.cardsList.length),
+    totalQuestions: deckDetails.cardsList.length,
   }
 }
 
@@ -41,18 +42,20 @@ class Quiz extends Component {
 
   state = {
     currentQuestion: {},
+    questionIndex: 0,
   }
 
   componentWillMount() {
     const { cardDetailList, resetScore } = this.props
     resetScore()
-    this.setState({ currentQuestion: getNextObj(cardDetailList, null) })
+    this.setState({ currentQuestion: getNextObj(cardDetailList, null), questionIndex: 1 })
   }
 
   getNextQuestion() {
     const { cardDetailList } = this.props
     this.setState({
       currentQuestion: getNextObj(cardDetailList, this.state.currentQuestion.questionId),
+      questionIndex: this.state.questionIndex + 1,
     })
   }
   answerQuestion(isRight) {
@@ -62,11 +65,14 @@ class Quiz extends Component {
   }
 
   render() {
-    const { currentQuestion } = this.state
-    const { score } = this.props
+    const { currentQuestion, questionIndex } = this.state
+    const { score, totalQuestions } = this.props
     return currentQuestion ? (
       <View style={styles.container}>
-        <View style={[styles.container, { flex: 2, alignSelf: 'center' }]}>
+        <View style={[styles.container, { flex: 2, alignItems: 'center' }]}>
+          <Text style={styles.deckSubtitle}>
+            Question {questionIndex} of {totalQuestions}
+          </Text>
           <Text style={styles.deckTitle}>{JSON.stringify(currentQuestion)}</Text>
         </View>
         <View style={{ flex: 1, padding: 20 }}>
