@@ -85,7 +85,7 @@ class ListDecks extends Component {
                   title={item.deckName}
                   featuredTitle={`${item.cardsList.length} Cards`}
                   image={require('../../images/pa.jpg')}
-                  featuredSubtitle={`Last Studied ${calculateTimeAgo(item.lastStudied)}`}
+                  featuredSubtitle={`last studied ${calculateTimeAgo(item.lastStudied)}`}
                   style={{
                     flex: 1,
                     alignItems: 'center',

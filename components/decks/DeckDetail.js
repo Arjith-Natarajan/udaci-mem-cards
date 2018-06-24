@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { primary, primaryLight, white, alt, altLight } from '../../utils/colors'
 import { getDeckById } from '../../reducers/decks'
+import { attendQuiz } from '../../actions/deck'
 
 const mapStateToProps = (state, ownProps) => ({
   deck: getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID')),
@@ -25,6 +26,7 @@ class DeckDetail extends Component {
     this.props.navigation.navigate('AddCard', { deckId })
   }
   onPressTakeQuiz = (deckId, deckName) => {
+    this.props.attendQuiz(deckId)
     this.props.navigation.navigate('TakeQuiz', { deckId, deckName })
   }
   render() {
@@ -91,5 +93,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   mapStateToProps,
-  null,
+  { attendQuiz },
 )(DeckDetail)

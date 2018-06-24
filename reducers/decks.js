@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { ADD_NEW_DECK, ADD_NEW_CARD } from '../actions/actionTypes'
+import { ADD_NEW_DECK, ADD_NEW_CARD, TAKE_QUIZ } from '../actions/actionTypes'
 
 const byId = (state = { some: 'state' }, action) => {
   switch (action.type) {
@@ -14,6 +14,14 @@ const byId = (state = { some: 'state' }, action) => {
         [action.payload.deckId]: {
           ...state[action.payload.deckId],
           cardsList: [...state[action.payload.deckId].cardsList, action.payload.questionId],
+        },
+      }
+    case TAKE_QUIZ:
+      return {
+        ...state,
+        [action.payload.deckId]: {
+          ...state[action.payload.deckId],
+          lastStudied: action.payload.lastStudied,
         },
       }
     case 'DO_SOMETHING':
