@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, StyleSheet, LayoutAnimation } from 'react-native'
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  StyleSheet,
+  LayoutAnimation,
+  TouchableOpacity,
+} from 'react-native'
+import { Card, ListItem, Button, Icon } from 'react-native-elements'
 import ActionButton from 'react-native-action-button'
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { primary, primaryLight, secondary, secondaryLight, white } from '../../utils/colors'
 import { getDecksList } from '../../reducers/decks'
+import { calculateTimeAgo } from '../../utils/helpers'
 
 const mapStateToProps = state => ({
   allDecks: getDecksList(state.decks),
@@ -53,6 +63,9 @@ class ListDecks extends Component {
     // Update your scroll position
     this._listViewOffset = currentOffset
   }
+  onPressCard = () => {
+    console.log('Pressed')
+  }
   render() {
     const { allDecks } = this.props
     const { isActionButtonVisible } = this.state
@@ -65,15 +78,25 @@ class ListDecks extends Component {
         <FlatList
           data={allDecks}
           renderItem={({ item }) => (
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                alignSelf: 'stretch',
-              }}
-            >
-              <Text>{item.deckName}</Text>
-              <Text>{item.cardsList.length}</Text>
+            <View>
+              <TouchableOpacity onPress={this.onPressCard}>
+                <Card
+                  title={item.deckName}
+                  featuredTitle={`Cards : ${item.cardsList.length}`}
+                  image={require('../../images/pa.jpg')}
+                  featuredSubtitle={`Last Studied ${calculateTimeAgo(item.lastStudied)}`}
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    alignSelf: 'stretch',
+                  }}
+                  containerStyle={{
+                    borderRadius: 10,
+                  }}
+                >
+                  {/* <Text style={{ marginBottom: 10 }}>{item.cardsList.length}</Text> */}
+                </Card>
+              </TouchableOpacity>
             </View>
           )}
           keyExtractor={item => item.deckId}

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
-// import initialState from './storage'
+import initialState from './storage'
 
 const persistConfig = {
   key: 'root',
@@ -22,7 +22,7 @@ const configureStore = () => {
   }
   const store = createStore(
     persistedReducer,
-    // initialState,
+    initialState,
     composeWithDevTools(applyMiddleware(...middlewares)),
   )
   const persistor = persistStore(store)

@@ -1,4 +1,5 @@
 import v4 from 'uuid'
+import moment from 'moment'
 import { ADD_NEW_DECK } from './actionTypes'
 
 export const createNewDeck = ({ deckName }) => ({
@@ -7,6 +8,6 @@ export const createNewDeck = ({ deckName }) => ({
     deckId: v4(),
     deckName,
     cardsList: [],
-    lastStudied: null,
+    lastStudied: moment().day(-7),
   },
 })
