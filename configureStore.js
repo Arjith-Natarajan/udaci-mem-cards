@@ -6,7 +6,6 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from 'redux-logger'
 import reducer from './reducers'
-// import { byId } from './reducers/decks'
 // import initialState from './storage'
 
 const persistConfig = {
