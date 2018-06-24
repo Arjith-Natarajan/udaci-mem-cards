@@ -26,3 +26,12 @@ const allIds = (state = [], action) => {
 const cards = combineReducers({ allIds, byId })
 
 export default cards
+
+export const fetchCardsByDeck = (state, cardsList) =>
+  cardsList.map(cardId => state.byId[cardId]).reduce(
+    (acc, currentCard) => ({
+      ...acc,
+      [currentCard.questionId]: currentCard,
+    }),
+    {},
+  )

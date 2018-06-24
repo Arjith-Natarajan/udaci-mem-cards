@@ -13,10 +13,13 @@ import {
   altDark,
 } from '../../utils/colors'
 import { getDeckById } from '../../reducers/decks'
+import { fetchCardsByDeck } from '../../reducers/cards'
+import { getNextObj } from '../../utils/helpers'
 
-const mapStateToProps = (state, ownProps) => ({
-  cardsIdList: getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID')).cardsList,
-})
+const mapStateToProps = (state, ownProps) => {
+  const deckDetails = getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID'))
+  return { cardDetailList: fetchCardsByDeck(state.cards, deckDetails.cardsList) }
+}
 
 class Quiz extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -32,22 +35,50 @@ class Quiz extends Component {
     },
   })
 
+  state = {
+    currentQuestion: {},
+  }
+
+  componentWillMount() {
+    const { cardDetailList } = this.props
+    this.setState({ currentQuestion: getNextObj(cardDetailList, null) })
+  }
+
+  getNextQuestion() {
+    const { cardDetailList } = this.props
+    this.setState({
+      currentQuestion: getNextObj(cardDetailList, this.state.currentQuestion.questionId),
+    })
+  }
+
   render() {
-    const { cardsIdList } = this.props
-    return (
+    const { currentQuestion } = this.state
+    return currentQuestion ? (
       <View style={styles.container}>
         <View style={[styles.container, { flex: 2, alignSelf: 'center' }]}>
-          <Text style={styles.deckTitle}>{JSON.stringify(cardsIdList)}</Text>
+          <Text style={styles.deckTitle}>{JSON.stringify(currentQuestion)}</Text>
         </View>
         <View style={{ flex: 1, padding: 20 }}>
-          <TouchableHighlight style={[styles.button, styles.danger]} underlayColor={altLight}>
+          <TouchableHighlight
+            style={[styles.button, styles.danger]}
+            underlayColor={altLight}
+            onPress={() => this.getNextQuestion()}
+          >
             <Text style={styles.buttonText}>WRONG</Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={[styles.button, styles.success]} underlayColor={altLight}>
+          <TouchableHighlight
+            style={[styles.button, styles.success]}
+            underlayColor={secondaryLight}
+            onPress={() => this.getNextQuestion()}
+          >
             <Text style={styles.buttonText}>RIGHT</Text>
           </TouchableHighlight>
         </View>
+      </View>
+    ) : (
+      <View style={styles.container}>
+        <Text style={[styles.deckTitle, { alignSelf: 'center' }]}>Your Score : 100%</Text>
       </View>
     )
   }

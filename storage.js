@@ -72,6 +72,6 @@ const initialState = {
       },
     },
   },
-  scorePercent: 0,
+  noOfCorrectAnswers: 0,
 }
 export default initialState
