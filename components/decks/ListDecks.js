@@ -60,14 +60,18 @@ class ListDecks extends Component {
       <View
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
         <FlatList
           data={allDecks}
           renderItem={({ item }) => (
-            <View>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                alignSelf: 'stretch',
+              }}
+            >
               <Text>{item.deckName}</Text>
               <Text>{item.cardsList.length}</Text>
             </View>
@@ -107,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     padding: 5,
-    textShadowColor: white
+    textShadowColor: white,
   },
 })
 
