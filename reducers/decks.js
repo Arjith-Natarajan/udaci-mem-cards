@@ -37,3 +37,4 @@ export default decks
 
 // Selectors
 export const getDecksList = state => state.allIds.map(id => state.byId[id])
+export const getDeckById = (state, id) => state.byId[id]

@@ -5,12 +5,12 @@ import DeckDetail from './DeckDetail'
 
 const DeckView = createStackNavigator(
   {
-    ViewDeck: DeckDetail,
     AddCard: AddNewCard,
+    DeckDetail,
     //  here goes definition for TakeQuiz: DeckQuiz,
   },
   {
-    initialRouteName: 'ViewDeck',
+    initialRouteName: 'DeckDetail',
     headerMode: 'none',
   },
 )

@@ -1,18 +1,88 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { connect } from 'react-redux'
+import { primary, primaryLight, white, alt, altLight } from '../../utils/colors'
+import { getDeckById } from '../../reducers/decks'
+
+const mapStateToProps = (state, ownProps) => ({
+  deck: getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID')),
+})
 
 class DeckDetail extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: navigation.getParam('deckName', 'Your Deck'),
+    headerStyle: {
+      backgroundColor: primary,
+    },
+    headerTintColor: white,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      marginTop: 0,
+      marginBottom: 10,
+    },
+  })
+  onPressAddCard = (deckId) => {
+    console.log(deck)
+  }
   render() {
-    const { navigation } = this.props;
-    const deckId = navigation.getParam('deckId', 'NO-ID');
-    const deckName = navigation.getParam('deckName', 'NO-ID');
-    const otherParam = navigation.getParam('otherParam', 'some default value');
+    const { deck } = this.props
     return (
-      <View>
-        <Text>{deckName}</Text>
+      <View style={styles.container}>
+        <View style={[styles.container, { flex: 2 }]}>
+          <Text style={styles.deckTitle}>{deck.deckName}</Text>
+          <Text style={styles.deckSubtitle}>{deck.cardsList.length} Cards</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableHighlight style={styles.button} underlayColor={altLight}>
+            <Text style={styles.buttonText}>Start Quiz</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor={altLight}
+            onPress={() => this.onPressAddCard(deck.deckId)}
+          >
+            <Text style={styles.buttonText}>Add Card</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
 }
 
-export default DeckDetail
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 18,
+    color: alt,
+    alignSelf: 'center',
+  },
+  deckTitle: {
+    fontSize: 33,
+    color: primary,
+  },
+  deckSubtitle: {
+    fontSize: 18,
+    color: primaryLight,
+  },
+  button: {
+    height: 46,
+    borderColor: alt,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderWidth: 2,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+})
+
+export default connect(
+  mapStateToProps,
+  null,
+)(DeckDetail)

@@ -5,7 +5,7 @@ import { Constants } from 'expo'
 import { primaryDark } from '../utils/colors'
 import AddNewDeck from './decks/AddNewDeck'
 import ListDecks from './decks/ListDecks'
-import DeckView from './decks/DeckView'
+import DeckDetail from './decks/DeckDetail'
 
 
 const Root = () => (
@@ -25,7 +25,7 @@ const RootView = createStackNavigator(
   {
     Home: ListDecks,
     AddDeck: AddNewDeck,
-    DeckDetailScreen: DeckView,
+    DeckDetailScreen: DeckDetail,
   },
   {
     initialRouteName: 'Home',

@@ -15,7 +15,7 @@ class AddNewDeck extends Component {
     headerTintColor: white,
     headerTitleStyle: {
       fontWeight: 'bold',
-      marginTop:  0,
+      marginTop: 0,
       marginBottom: 10,
     },
   }
