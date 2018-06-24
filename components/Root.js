@@ -7,6 +7,7 @@ import AddNewDeck from './decks/AddNewDeck'
 import AddNewCard from './cards/AddNewCard'
 import ListDecks from './decks/ListDecks'
 import DeckDetail from './decks/DeckDetail'
+import Quiz from './cards/Quiz'
 
 const Root = () => (
   <View style={{ flex: 1, backgroundColor: '#f3f3f3' }}>
@@ -27,6 +28,7 @@ const RootView = createStackNavigator(
     AddDeck: AddNewDeck,
     DeckDetailScreen: DeckDetail,
     AddCard: AddNewCard,
+    TakeQuiz: Quiz,
   },
   {
     initialRouteName: 'Home',

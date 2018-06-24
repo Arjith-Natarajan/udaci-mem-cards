@@ -24,6 +24,9 @@ class DeckDetail extends Component {
   onPressAddCard = (deckId) => {
     this.props.navigation.navigate('AddCard', { deckId })
   }
+  onPressTakeQuiz = (deckId, deckName) => {
+    this.props.navigation.navigate('TakeQuiz', { deckId, deckName })
+  }
   render() {
     const { deck } = this.props
     return (
@@ -33,7 +36,11 @@ class DeckDetail extends Component {
           <Text style={styles.deckSubtitle}>{deck.cardsList.length} Cards</Text>
         </View>
         <View style={{ flex: 1 }}>
-          <TouchableHighlight style={styles.button} underlayColor={altLight}>
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor={altLight}
+            onPress={() => this.onPressTakeQuiz(deck.deckId, deck.deckName)}
+          >
             <Text style={styles.buttonText}>Start Quiz</Text>
           </TouchableHighlight>
 
