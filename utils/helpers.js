@@ -1,19 +1,10 @@
 import moment from 'moment'
-import expect from 'expect'
 
 export const calculateTimeAgo = (lastStudied) => {
   if (!lastStudied) return 'never'
   const now = moment()
   const diffString = moment.duration(now.diff(lastStudied)).humanize()
   return `${diffString} ago`
-}
-
-// Mock data
-const data = {
-  a: 'b',
-  b: 'c',
-  c: 'd',
-  d: 'e',
 }
 
 // NEXT KEY
@@ -44,6 +35,6 @@ export const getPreviousObj = (o, id) => {
   const nextKey = keys[nextIndex]
   return o[nextKey]
 }
-// expect(getNextObj(data, 'b')).toEqual('c')
-// expect(getNextObj(data, null)).toEqual('a')
-console.log('ALL tests passing')
+
+export const computeScore = (crctlyAnsweredQuestions, totalQuestions) =>
+  ((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(3)

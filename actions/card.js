@@ -1,5 +1,5 @@
 import v4 from 'uuid'
-import { ADD_NEW_CARD } from './actionTypes'
+import { ADD_NEW_CARD, ANSWER_QUESTION_WRONG, ANSWER_QUESTION_CORRECT } from './actionTypes'
 
 export const createNewCard = ({ question, answer, deckId }) => ({
   type: ADD_NEW_CARD,
@@ -9,4 +9,11 @@ export const createNewCard = ({ question, answer, deckId }) => ({
     question,
     answer,
   },
+})
+
+export const answerCorrectly = () => ({
+  type: ANSWER_QUESTION_CORRECT,
+})
+export const answerWrongly = () => ({
+  type: ANSWER_QUESTION_WRONG,
 })

@@ -13,12 +13,16 @@ import {
   altDark,
 } from '../../utils/colors'
 import { getDeckById } from '../../reducers/decks'
+import { answerCorrectly, answerWrongly } from '../../actions/card'
 import { fetchCardsByDeck } from '../../reducers/cards'
-import { getNextObj } from '../../utils/helpers'
+import { getNextObj, computeScore } from '../../utils/helpers'
 
 const mapStateToProps = (state, ownProps) => {
   const deckDetails = getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID'))
-  return { cardDetailList: fetchCardsByDeck(state.cards, deckDetails.cardsList) }
+  return {
+    cardDetailList: fetchCardsByDeck(state.cards, deckDetails.cardsList),
+    score: computeScore(state.noOfCorrectAnswers, deckDetails.cardsList.length),
+  }
 }
 
 class Quiz extends Component {
@@ -50,9 +54,15 @@ class Quiz extends Component {
       currentQuestion: getNextObj(cardDetailList, this.state.currentQuestion.questionId),
     })
   }
+  answerQuestion(isRight) {
+    const { answerCorrectly, answerWrongly } = this.props
+    isRight ? answerCorrectly() : answerWrongly()
+    this.getNextQuestion()
+  }
 
   render() {
     const { currentQuestion } = this.state
+    const { score } = this.props
     return currentQuestion ? (
       <View style={styles.container}>
         <View style={[styles.container, { flex: 2, alignSelf: 'center' }]}>
@@ -62,7 +72,7 @@ class Quiz extends Component {
           <TouchableHighlight
             style={[styles.button, styles.danger]}
             underlayColor={altLight}
-            onPress={() => this.getNextQuestion()}
+            onPress={() => this.answerQuestion(false)}
           >
             <Text style={styles.buttonText}>WRONG</Text>
           </TouchableHighlight>
@@ -70,7 +80,7 @@ class Quiz extends Component {
           <TouchableHighlight
             style={[styles.button, styles.success]}
             underlayColor={secondaryLight}
-            onPress={() => this.getNextQuestion()}
+            onPress={() => this.answerQuestion(true)}
           >
             <Text style={styles.buttonText}>RIGHT</Text>
           </TouchableHighlight>
@@ -78,7 +88,7 @@ class Quiz extends Component {
       </View>
     ) : (
       <View style={styles.container}>
-        <Text style={[styles.deckTitle, { alignSelf: 'center' }]}>Your Score : 100%</Text>
+        <Text style={[styles.deckTitle, { alignSelf: 'center' }]}>Your Score : {score} %</Text>
       </View>
     )
   }
@@ -124,5 +134,5 @@ const styles = StyleSheet.create({
 
 export default connect(
   mapStateToProps,
-  null,
+  { answerCorrectly, answerWrongly },
 )(Quiz)
