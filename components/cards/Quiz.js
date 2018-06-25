@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import {
   primary,
   primaryLight,
+  primaryDark,
   white,
   alt,
   altLight,
@@ -64,6 +65,12 @@ class Quiz extends Component {
     this.getNextQuestion()
   }
 
+  retakeQuiz() {
+    const { cardDetailList, resetScore } = this.props
+    resetScore()
+    this.setState({ currentQuestion: getNextObj(cardDetailList, null), questionIndex: 1 })
+  }
+
   render() {
     const { currentQuestion, questionIndex } = this.state
     const { score, totalQuestions } = this.props
@@ -95,9 +102,28 @@ class Quiz extends Component {
       </View>
     ) : (
       <View style={[styles.container, { alignItems: 'center' }]}>
-        <Text style={styles.deckTitle}>Your Score : {computeScore(score, totalQuestions)}</Text>
-        <Text style={styles.deckSubtitle}> Total Question : {totalQuestions} </Text>
-        <Text style={styles.deckSubtitle}> Answered Correctly : {score} </Text>
+        <View style={[styles.container, { flex: 2, alignItems: 'center' }]}>
+          <Text style={styles.deckTitle}>Your Score : {computeScore(score, totalQuestions)}</Text>
+          <Text style={styles.deckSubtitle}> Total Question : {totalQuestions} </Text>
+          <Text style={styles.deckSubtitle}> Answered Correctly : {score} </Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <TouchableHighlight
+            style={[styles.button, styles.primary]}
+            underlayColor={primaryLight}
+            onPress={() => this.retakeQuiz()}
+          >
+            <Text style={styles.buttonPrimary}>ReStart Quiz</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={[styles.button, styles.primary]}
+            underlayColor={primaryLight}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Text style={styles.buttonPrimary}>Back To Deck</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
@@ -112,6 +138,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: white,
+    alignSelf: 'center',
+  },
+  buttonPrimary: {
+    fontSize: 20,
+    color: primary,
     alignSelf: 'center',
   },
   deckTitle: {
@@ -138,6 +169,9 @@ const styles = StyleSheet.create({
   danger: {
     backgroundColor: alt,
     borderColor: altDark,
+  },
+  primary: {
+    borderColor: primaryDark,
   },
 })
 
