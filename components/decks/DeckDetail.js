@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { primary, primaryLight, white, alt, altLight } from '../../utils/colors'
+import {clearLocalNotification, setLocalNotification} from '../../utils/helpers'
 import { getDeckById } from '../../reducers/decks'
 import { attendQuiz } from '../../actions/deck'
 
@@ -27,6 +28,7 @@ class DeckDetail extends Component {
   }
   onPressTakeQuiz = (deckId, deckName) => {
     this.props.attendQuiz(deckId)
+    clearLocalNotification().then(setLocalNotification)
     this.props.navigation.navigate('TakeQuiz', { deckId, deckName })
   }
   render() {
