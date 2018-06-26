@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Card } from 'react-native-elements'
 import { primary, primaryLight, altLight, white } from '../../utils/colors'
 
-const fixedMaxHeightCard = 300
+const fixedMaxHeightCard = 320
 class AnimatedCard extends Component {
   componentWillMount() {
     this.animatedHeightValue = new Animated.Value(0)
@@ -15,7 +15,7 @@ class AnimatedCard extends Component {
     Animated.stagger(300, [
       Animated.timing(this.animatedHeightValue, {
         toValue: fixedMaxHeightCard,
-        duration: 500,
+        duration: 200,
       }),
     ]).start()
   }
@@ -23,7 +23,7 @@ class AnimatedCard extends Component {
     Animated.stagger(300, [
       Animated.timing(this.animatedHeightValue, {
         toValue: 0,
-        duration: 500,
+        duration: 200,
       }),
     ]).start()
   }
@@ -37,9 +37,11 @@ class AnimatedCard extends Component {
         <View style={[styles.flashCardFront]}>
           <Card title="Question" containerStyle={[styles.flashCard, styles.question]}>
             <Text style={styles.title}>{question}</Text>
-            <TouchableOpacity onPress={() => this.flashCard()}>
-              <Text style={styles.subtitle}>show Answer</Text>
-            </TouchableOpacity>
+            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
+              <TouchableOpacity onPress={() => this.flashCard()}>
+                <Text style={styles.subtitle}>show Answer</Text>
+              </TouchableOpacity>
+            </View>
           </Card>
         </View>
         <Animated.View style={[styles.flashCardBack, animatedHeightStyle]}>
@@ -50,9 +52,11 @@ class AnimatedCard extends Component {
             <View style={{ flex: 1, alignSelf: 'center' }}>
               <Text style={styles.title}>{answer}</Text>
             </View>
-            <TouchableOpacity onPress={() => this.unflashCard()}>
-              <Text style={styles.subtitle}>show Question</Text>
-            </TouchableOpacity>
+            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
+              <TouchableOpacity onPress={() => this.unflashCard()}>
+                <Text style={styles.subtitle}>show Question</Text>
+              </TouchableOpacity>
+            </View>
           </Card>
         </Animated.View>
       </View>
@@ -90,10 +94,10 @@ const styles = StyleSheet.create({
   flashCardBack: {
     position: 'absolute',
     top: 0,
-    // width: 300,
+    width: 300,
   },
   flashCardFront: {
-    // width: 300,
+    width: 300,
     height: fixedMaxHeightCard,
   },
 })
