@@ -5,10 +5,23 @@ import { Card } from 'react-native-elements'
 import { primary, primaryLight, altLight, white } from '../../utils/colors'
 
 class AnimatedCard extends Component {
+  state = {
+    onToggleShow: 'answer',
+  }
   componentWillMount() {
     this.animatedHeightValue = new Animated.Value(0)
   }
   componentDidMount() {}
+  toggleQAndA() {
+    const { onToggleShow } = this.state
+    if (onToggleShow === 'answer') {
+      this.flashCard()
+      this.setState({ onToggleShow: 'question' })
+    } else {
+      this.unflashCard()
+      this.setState({ onToggleShow: 'answer' })
+    }
+  }
   flashCard() {
     Animated.stagger(300, [
       Animated.timing(this.animatedHeightValue, {
@@ -27,6 +40,7 @@ class AnimatedCard extends Component {
   }
   render() {
     const { question, answer } = this.props.cardDetail
+    const { onToggleShow } = this.state
     const animatedHeightStyle = {
       height: this.animatedHeightValue,
     }
@@ -48,11 +62,8 @@ class AnimatedCard extends Component {
           </Card>
         </Animated.View>
 
-        <TouchableOpacity onPress={() => this.flashCard()}>
-          <Text style={styles.subtitle}>show Question</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.unflashCard()}>
-          <Text style={styles.subtitle}>show Answer</Text>
+        <TouchableOpacity onPress={() => this.toggleQAndA()}>
+          <Text style={styles.subtitle}>show {onToggleShow}</Text>
         </TouchableOpacity>
       </View>
     )
