@@ -64,9 +64,13 @@ export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
+      console.log('Retrived Data from AsyncStorage', data)
       if (data === null) {
+        console.log('Retrived Data found to be null, asking Permissions')
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          console.log('User Entered Permissions')
           if (status === 'granted') {
+            console.log('User granted Permissions')
             Notifications.cancelAllScheduledNotificationsAsync()
 
             const tomorrow = new Date()
@@ -78,6 +82,7 @@ export function setLocalNotification() {
               time: tomorrow,
               repeat: 'day',
             })
+            console.log('Setting notification')
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           }
         })
