@@ -9,9 +9,27 @@ class AnimatedCard extends Component {
     this.animatedHeightValue = new Animated.Value(0)
   }
   componentDidMount() {}
-  flashCard() {}
+  flashCard() {
+    Animated.stagger(300, [
+      Animated.timing(this.animatedHeightValue, {
+        toValue: 350,
+        duration: 200,
+      }),
+    ]).start()
+  }
+  unflashCard() {
+    Animated.stagger(300, [
+      Animated.timing(this.animatedHeightValue, {
+        toValue: 0,
+        duration: 200,
+      }),
+    ]).start()
+  }
   render() {
     const { question, answer } = this.props.cardDetail
+    const animatedHeightStyle = {
+      height: this.animatedHeightValue,
+    }
     return (
       <View style={styles.container}>
         <View style={[styles.flashCardFront]}>
@@ -19,7 +37,7 @@ class AnimatedCard extends Component {
             <Text style={styles.title}>{question}</Text>
           </Card>
         </View>
-        <View style={[styles.flashCardBack]}>
+        <Animated.View style={[styles.flashCardBack, animatedHeightStyle]}>
           <Card title="Answer" containerStyle={[styles.flashCard, styles.answer]}>
             <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
               <MaterialCommunityIcons name="lightbulb-on-outline" size={65} color={altLight} />
@@ -28,10 +46,13 @@ class AnimatedCard extends Component {
               <Text style={styles.title}>{answer}</Text>
             </View>
           </Card>
-        </View>
+        </Animated.View>
 
         <TouchableOpacity onPress={() => this.flashCard()}>
           <Text style={styles.subtitle}>show Question</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.unflashCard()}>
+          <Text style={styles.subtitle}>show Answer</Text>
         </TouchableOpacity>
       </View>
     )
@@ -67,7 +88,6 @@ const styles = StyleSheet.create({
   flashCardBack: {
     position: 'absolute',
     top: 0,
-    height: 0,
     width: 300,
   },
   flashCardFront: {
