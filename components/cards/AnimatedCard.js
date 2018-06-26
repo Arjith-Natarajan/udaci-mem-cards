@@ -1,25 +1,38 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { Card } from 'react-native-elements'
 import { primary, primaryLight, altLight, white } from '../../utils/colors'
 
 class AnimatedCard extends Component {
+  componentWillMount() {
+    this.animatedHeightValue = new Animated.Value(0)
+  }
   componentDidMount() {}
+  flashCard() {}
   render() {
     const { question, answer } = this.props.cardDetail
     return (
       <View style={styles.container}>
-        <Card title="Question" containerStyle={[styles.flashCard]}>
-          <Text style={styles.title}>{question}</Text>
-        </Card>
-        <Card title="Answer" containerStyle={[styles.flashCard, styles.flashCardBack]}>
-          <View style={{ alignSelf: 'center' }}>
-            <MaterialCommunityIcons name="lightbulb-on-outline" size={65} color={altLight} />
-          </View>
-          <Text style={styles.title}>{answer}</Text>
-        </Card>
-        <Text style={styles.subtitle}>show Question</Text>
+        <View style={[styles.flashCardFront]}>
+          <Card title="Question" containerStyle={[styles.flashCard, styles.question]}>
+            <Text style={styles.title}>{question}</Text>
+          </Card>
+        </View>
+        <View style={[styles.flashCardBack]}>
+          <Card title="Answer" containerStyle={[styles.flashCard, styles.answer]}>
+            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+              <MaterialCommunityIcons name="lightbulb-on-outline" size={65} color={altLight} />
+            </View>
+            <View style={{ flex: 1, alignSelf: 'center' }}>
+              <Text style={styles.title}>{answer}</Text>
+            </View>
+          </Card>
+        </View>
+
+        <TouchableOpacity onPress={() => this.flashCard()}>
+          <Text style={styles.subtitle}>show Question</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -28,7 +41,7 @@ class AnimatedCard extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   title: {
@@ -41,21 +54,25 @@ const styles = StyleSheet.create({
   },
   flashCard: {
     flex: 1,
-    // alignSelf: 'stretch',
     alignItems: 'center',
-    height: 500,
-    width: 300,
     borderRadius: 10,
-    margin: 30,
+  },
+  question: {
     backgroundColor: primaryLight,
-    backfaceVisibility: 'hidden',
+  },
+  answer: {
+    backgroundColor: white,
+    padding: 0,
   },
   flashCardBack: {
-    backgroundColor: white,
     position: 'absolute',
     top: 0,
     height: 0,
-    alignSelf: 'center',
+    width: 300,
+  },
+  flashCardFront: {
+    width: 300,
+    height: 350,
   },
 })
 
