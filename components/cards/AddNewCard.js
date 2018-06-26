@@ -28,7 +28,7 @@ class AddNewCard extends Component {
         <AddNewCardForm
           onSubmitForm={(formPayload) => {
             onCreateCard({ ...formPayload, deckId })
-            navigation.popToTop()
+            navigation.goBack()
           }}
         />
       </View>
