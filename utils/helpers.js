@@ -41,7 +41,7 @@ export const getPreviousObj = (o, id) => {
 }
 
 export const computeScore = (crctlyAnsweredQuestions, totalQuestions) =>
-  `${((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(3)} %`
+  `${((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(2)} %`
 
 export function clearLocalNotification() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync)

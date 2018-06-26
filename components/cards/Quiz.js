@@ -17,6 +17,7 @@ import { getDeckById } from '../../reducers/decks'
 import { answerCorrectly, answerWrongly, resetScore } from '../../actions/card'
 import { fetchCardsByDeck } from '../../reducers/cards'
 import { getNextObj, computeScore } from '../../utils/helpers'
+import AnimatedCard from './AnimatedCard'
 
 const mapStateToProps = (state, ownProps) => {
   const deckDetails = getDeckById(state.decks, ownProps.navigation.getParam('deckId', 'NO-ID'))
@@ -80,9 +81,9 @@ class Quiz extends Component {
           <Text style={styles.deckSubtitle}>
             Question {questionIndex} of {totalQuestions}
           </Text>
-          <Text style={styles.deckTitle}>{JSON.stringify(currentQuestion)}</Text>
+          <AnimatedCard question={currentQuestion.question} answer={currentQuestion.answer} />
         </View>
-        <View style={{ flex: 1, padding: 20 }}>
+        <View style={{ flex: 1, justifyContent: 'flex-end', paddingHorizontal: 20 }}>
           <TouchableHighlight
             style={[styles.button, styles.danger]}
             underlayColor={altLight}
