@@ -10,8 +10,9 @@ import initialState from './storage'
 
 const persistConfig = {
   key: 'root',
+  blacklist: ['noOfCorrectAnswers'],
   storage,
-  stateReconciler: autoMergeLevel2, // see "Merge Process" section for details.
+  stateReconciler: autoMergeLevel2,
 }
 const persistedReducer = persistReducer(persistConfig, reducer)
 
