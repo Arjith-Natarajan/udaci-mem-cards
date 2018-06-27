@@ -68,7 +68,6 @@ DeckDetail.propTypes = {
     deckId: PropTypes.string.isRequired,
     deckName: PropTypes.string.isRequired,
     cardsList: PropTypes.arrayOf(PropTypes.string).isRequired,
-    lastStudied: PropTypes.object,
   }).isRequired,
   navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   attendQuiz: PropTypes.func.isRequired,
