@@ -1,20 +1,13 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  Image,
-  FlatList,
-  StyleSheet,
-  LayoutAnimation,
-  TouchableOpacity,
-} from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import PropTypes from 'prop-types'
+import { View, Text, Image, FlatList, StyleSheet, LayoutAnimation } from 'react-native'
 import ActionButton from 'react-native-action-button'
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons' // eslint-disable-line import/no-extraneous-dependencies
 import { connect } from 'react-redux'
 import { primary, primaryLight, secondary, secondaryLight, white } from '../../utils/colors'
 import { getDecksList } from '../../reducers/decks'
-import { calculateTimeAgo } from '../../utils/helpers'
+import { AssistiveImage } from '../../utils/assetsManager'
+import DeckPreview from './DeckPreview'
 
 const mapStateToProps = state => ({
   allDecks: getDecksList(state.decks),
@@ -33,40 +26,41 @@ class ListDecks extends Component {
     headerTitle: <Title />,
     headerStyle: {
       backgroundColor: primary,
-      height: 40,
     },
-    headerPressColorAndroid: primaryLight,
   }
   state = {
     isActionButtonVisible: true,
   }
   componentDidMount() {}
-  _listViewOffset = 0
-  _onScroll = (event) => {
-    // Simple fade-in / fade-out animation
+  onScroll = (event) => {
     const CustomLayoutLinear = {
       duration: 100,
       create: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
       update: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
       delete: { type: LayoutAnimation.Types.linear, property: LayoutAnimation.Properties.opacity },
     }
-    // Check if the user is scrolling up or down
-    // by confronting the new scroll position with your own one
     const currentOffset = event.nativeEvent.contentOffset.y
-    const direction = currentOffset > 0 && currentOffset > this._listViewOffset ? 'down' : 'up'
-    // If the user is scrolling down (and the action-button is still visible) hide it
+    const direction = currentOffset > 0 && currentOffset > this.listViewOffset ? 'down' : 'up'
     const isActionButtonVisible = direction === 'up'
     if (isActionButtonVisible !== this.state.isActionButtonVisible) {
       LayoutAnimation.configureNext(CustomLayoutLinear)
       this.setState({ isActionButtonVisible })
     }
-    // Update your scroll position
-    this._listViewOffset = currentOffset
+    this.listViewOffset = currentOffset
   }
-  onPressCard = ({deckId, deckName}) => {
-    console.log('Pressed')
-    this.props.navigation.navigate('DeckDetailScreen',{deckId, deckName})
+  onPressCard = ({ deckId, deckName }) => {
+    this.props.navigation.navigate('DeckDetailScreen', { deckId, deckName })
   }
+  listViewOffset = 0
+
+  NoDecks = () => (
+    <View style={styles.container}>
+      <Text style={styles.title}>No Decks to Show,</Text>
+      <Text style={styles.subtitle}>Add Some to get started</Text>
+      <Image source={AssistiveImage} style={styles.assistiveImage} />
+    </View>
+  )
+
   render() {
     const { allDecks } = this.props
     const { isActionButtonVisible } = this.state
@@ -78,30 +72,10 @@ class ListDecks extends Component {
       >
         <FlatList
           data={allDecks}
-          renderItem={({ item }) => (
-            <View>
-              <TouchableOpacity onPress={() => this.onPressCard(item)}>
-                <Card
-                  title={item.deckName}
-                  featuredTitle={`${item.cardsList.length} Cards`}
-                  image={require('../../images/pa.jpg')}
-                  featuredSubtitle={`last studied ${calculateTimeAgo(item.lastStudied)}`}
-                  style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    alignSelf: 'stretch',
-                  }}
-                  containerStyle={{
-                    borderRadius: 10,
-                  }}
-                >
-                  {/* <Text style={{ marginBottom: 10 }}>{item.cardsList.length}</Text> */}
-                </Card>
-              </TouchableOpacity>
-            </View>
-          )}
+          renderItem={({ item }) => <DeckPreview item={item} onPressCard={this.onPressCard} />}
           keyExtractor={item => item.deckId}
-          onScroll={this._onScroll}
+          onScroll={this.onScroll}
+          ListEmptyComponent={this.NoDecks}
         />
         {isActionButtonVisible && (
           <ActionButton
@@ -121,7 +95,34 @@ class ListDecks extends Component {
     )
   }
 }
+
+ListDecks.propTypes = {
+  navigation: PropTypes.isRequired,
+  allDecks: PropTypes.isRequired,
+}
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 30,
+  },
+  assistiveImage: {
+    width: 200,
+    height: 200,
+    alignSelf: 'flex-end',
+    marginTop: 30,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 28,
+    color: primary,
+  },
+  subtitle: {
+    fontSize: 22,
+    color: primaryLight,
+  },
   fab: {
     position: 'absolute',
     right: 0,
@@ -130,12 +131,12 @@ const styles = StyleSheet.create({
   headerTitleStyle: {
     fontWeight: 'bold',
     alignItems: 'center',
-    color: primaryLight,
+    color: white,
     fontSize: 25,
     marginTop: 10,
     marginBottom: 20,
     padding: 5,
-    textShadowColor: white,
+    textShadowColor: primaryLight,
   },
 })
 

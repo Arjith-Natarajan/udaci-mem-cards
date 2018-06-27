@@ -23,7 +23,7 @@ const configureStore = () => {
   }
   const store = createStore(
     persistedReducer,
-    initialState,
+    // initialState,
     composeWithDevTools(applyMiddleware(...middlewares)),
   )
   const persistor = persistStore(store)
