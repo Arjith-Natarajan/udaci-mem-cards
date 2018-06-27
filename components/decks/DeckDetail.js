@@ -28,9 +28,11 @@ class DeckDetail extends Component {
     this.props.navigation.navigate('AddCard', { deckId })
   }
   onPressTakeQuiz = (deckId, deckName) => {
-    this.props.attendQuiz(deckId)
-    clearLocalNotification().then(setLocalNotification)
-    this.props.navigation.navigate('TakeQuiz', { deckId, deckName })
+    if (this.props.deck.cardsList.length) {
+      this.props.attendQuiz(deckId)
+      clearLocalNotification().then(setLocalNotification)
+      this.props.navigation.navigate('TakeQuiz', { deckId, deckName })
+    }
   }
   render() {
     const { deck } = this.props
