@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { primary, primaryLight, white, alt, altLight } from '../../utils/colors'
-import {clearLocalNotification, setLocalNotification} from '../../utils/helpers'
+import { clearLocalNotification, setLocalNotification } from '../../utils/helpers'
 import { getDeckById } from '../../reducers/decks'
 import { attendQuiz } from '../../actions/deck'
 
@@ -59,6 +60,16 @@ class DeckDetail extends Component {
       </View>
     )
   }
+}
+DeckDetail.propTypes = {
+  deck: PropTypes.shape({
+    deckId: PropTypes.string.isRequired,
+    deckName: PropTypes.string.isRequired,
+    cardsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    lastStudied: PropTypes.object,
+  }).isRequired,
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  attendQuiz: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

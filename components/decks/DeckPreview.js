@@ -27,7 +27,12 @@ const DeckPreview = ({ item, onPressCard }) => (
 )
 
 DeckPreview.propTypes = {
-  item: PropTypes.isRequired,
+  item: PropTypes.shape({
+    deckId: PropTypes.string.isRequired,
+    deckName: PropTypes.string.isRequired,
+    cardsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    lastStudied: PropTypes.object,
+  }).isRequired,
   onPressCard: PropTypes.func.isRequired,
 }
 
