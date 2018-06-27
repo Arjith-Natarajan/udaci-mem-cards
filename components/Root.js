@@ -3,7 +3,7 @@ import { View, StatusBar } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { Constants } from 'expo'
 import { primaryDark } from '../utils/colors'
-import { setLocalNotification, clearLocalNotification } from '../utils/helpers'
+import { setLocalNotification } from '../utils/helpers'
 import AddNewDeck from './decks/AddNewDeck'
 import AddNewCard from './cards/AddNewCard'
 import ListDecks from './decks/ListDecks'
@@ -13,7 +13,6 @@ import Quiz from './cards/Quiz'
 class Root extends Component {
   componentDidMount() {
     setLocalNotification()
-    // clearLocalNotification()
   }
   render() {
     return (

@@ -97,8 +97,13 @@ class ListDecks extends Component {
 }
 
 ListDecks.propTypes = {
-  navigation: PropTypes.isRequired,
-  allDecks: PropTypes.isRequired,
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  allDecks: PropTypes.arrayOf(PropTypes.shape({
+    deckId: PropTypes.string.isRequired,
+    deckName: PropTypes.string.isRequired,
+    cardsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    lastStudied: PropTypes.number.isRequired,
+  })).isRequired,
 }
 
 const styles = StyleSheet.create({

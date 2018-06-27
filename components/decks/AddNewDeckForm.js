@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import t from 'tcomb-form-native' // 0.6.9
+import PropTypes from 'prop-types'
+import t from 'tcomb-form-native'
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native'
 import { secondary, secondaryLight } from '../../utils/colors'
 
@@ -19,7 +20,6 @@ class AddNewDeckForm extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* display */}
         <Form
           ref={(c) => {
             this.form = c
@@ -37,6 +37,9 @@ class AddNewDeckForm extends Component {
       </View>
     )
   }
+}
+AddNewDeckForm.propTypes = {
+  onSubmitForm: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

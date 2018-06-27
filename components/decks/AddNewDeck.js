@@ -36,6 +36,7 @@ class AddNewDeck extends Component {
 }
 
 AddNewDeck.propTypes = {
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   onCreateDeck: PropTypes.func.isRequired,
 }
 
