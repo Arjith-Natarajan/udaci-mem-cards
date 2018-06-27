@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons' // eslint-disable-line import/no-extraneous-dependencies
 import { Card } from 'react-native-elements'
 import { primary, primaryLight, altLight, white } from '../../utils/colors'
 
@@ -62,6 +63,11 @@ class AnimatedCard extends Component {
       </View>
     )
   }
+}
+
+AnimatedCard.propTypes = {
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
 }
 
 const styles = StyleSheet.create({
