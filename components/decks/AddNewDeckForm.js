@@ -15,7 +15,7 @@ const options = {}
 class AddNewDeckForm extends Component {
   onSubmitHandler = () => {
     const value = this.form.getValue()
-    this.props.onSubmitForm(value)
+    if (value) this.props.onSubmitForm(value)
   }
   render() {
     return (
