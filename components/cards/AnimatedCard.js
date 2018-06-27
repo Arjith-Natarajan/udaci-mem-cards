@@ -53,7 +53,7 @@ class AnimatedCard extends Component {
             <View style={{ flex: 1, alignSelf: 'center' }}>
               <Text style={styles.title}>{answer}</Text>
             </View>
-            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
+            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
               <TouchableOpacity onPress={() => this.unflashCard()}>
                 <Text style={styles.subtitle}>show Question</Text>
               </TouchableOpacity>
