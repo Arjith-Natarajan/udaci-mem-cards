@@ -22,7 +22,7 @@ const configureStore = () => {
   const store = createStore(
     persistedReducer,
     // initialState,
-    applyMiddleware(...middlewares),
+    // applyMiddleware(...middlewares),
   )
   const persistor = persistStore(store)
   // persistor.purge()
