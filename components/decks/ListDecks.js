@@ -102,7 +102,6 @@ ListDecks.propTypes = {
     deckId: PropTypes.string.isRequired,
     deckName: PropTypes.string.isRequired,
     cardsList: PropTypes.arrayOf(PropTypes.string).isRequired,
-    lastStudied: PropTypes.object,
   })).isRequired,
 }
 
