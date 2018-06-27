@@ -44,8 +44,8 @@ yarn start
 
 ## Known Issues
 The following are the issues that one needs to watch out for while trying to build/run from the source
-- ** Persistence into AsyncStorage  **: during developement worked intermittently. Promises took too long to resolve. - Observed briefly and then disappeared. (Cause undetermined)
-- ** Animations not smooth at times **: during developement animations rendered dont render properly - However can confirm the working & correctness of code.
+- **Persistence into AsyncStorage**: during developement worked intermittently. Promises took too long to resolve. - Observed briefly and then disappeared. (Cause undetermined)
+- **Animations not smooth at times**: during developement animations rendered dont render properly - However can confirm the working & correctness of code.
 
 ## Missing Something?
 
