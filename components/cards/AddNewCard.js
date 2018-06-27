@@ -37,6 +37,7 @@ class AddNewCard extends Component {
 }
 
 AddNewCard.propTypes = {
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   onCreateCard: PropTypes.func.isRequired,
 }
 

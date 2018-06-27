@@ -1,18 +1,9 @@
+/* eslint no-shadow: 0 */ //
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import {
-  primary,
-  primaryLight,
-  primaryDark,
-  white,
-  alt,
-  altLight,
-  secondary,
-  secondaryDark,
-  secondaryLight,
-  altDark,
-} from '../../utils/colors'
+import * as c from '../../utils/colors'
 import { getDeckById } from '../../reducers/decks'
 import { answerCorrectly, answerWrongly, resetScore } from '../../actions/card'
 import { fetchCardsByDeck } from '../../reducers/cards'
@@ -32,9 +23,9 @@ class Quiz extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.getParam('deckName', 'Your Deck')} Quiz`,
     headerStyle: {
-      backgroundColor: primary,
+      backgroundColor: c.primary,
     },
-    headerTintColor: white,
+    headerTintColor: c.white,
     headerTitleStyle: {
       fontWeight: 'bold',
       marginTop: 0,
@@ -62,7 +53,7 @@ class Quiz extends Component {
   }
   answerQuestion(isRight) {
     const { answerCorrectly, answerWrongly } = this.props
-    isRight ? answerCorrectly() : answerWrongly()
+    isRight ? answerCorrectly() : answerWrongly() // eslint-disable-line no-unused-expressions
     this.getNextQuestion()
   }
 
@@ -86,7 +77,7 @@ class Quiz extends Component {
         <View style={{ flex: 1, justifyContent: 'flex-end', paddingHorizontal: 20 }}>
           <TouchableHighlight
             style={[styles.button, styles.danger]}
-            underlayColor={altLight}
+            underlayColor={c.altLight}
             onPress={() => this.answerQuestion(false)}
           >
             <Text style={styles.buttonText}>WRONG</Text>
@@ -94,7 +85,7 @@ class Quiz extends Component {
 
           <TouchableHighlight
             style={[styles.button, styles.success]}
-            underlayColor={secondaryLight}
+            underlayColor={c.secondaryLight}
             onPress={() => this.answerQuestion(true)}
           >
             <Text style={styles.buttonText}>RIGHT</Text>
@@ -111,7 +102,7 @@ class Quiz extends Component {
         <View style={{ flex: 1 }}>
           <TouchableHighlight
             style={[styles.button, styles.primary]}
-            underlayColor={primaryLight}
+            underlayColor={c.primaryLight}
             onPress={() => this.retakeQuiz()}
           >
             <Text style={styles.buttonPrimary}>ReStart Quiz</Text>
@@ -119,7 +110,7 @@ class Quiz extends Component {
 
           <TouchableHighlight
             style={[styles.button, styles.primary]}
-            underlayColor={primaryLight}
+            underlayColor={c.primaryLight}
             onPress={() => this.props.navigation.goBack()}
           >
             <Text style={styles.buttonPrimary}>Back To Deck</Text>
@@ -130,6 +121,20 @@ class Quiz extends Component {
   }
 }
 
+Quiz.propTypes = {
+  cardDetailList: PropTypes.objectOf(PropTypes.shape({
+    questionId: PropTypes.string.isRequired,
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+  })).isRequired,
+  answerCorrectly: PropTypes.func.isRequired,
+  answerWrongly: PropTypes.func.isRequired,
+  resetScore: PropTypes.func.isRequired,
+  totalQuestions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  navigation: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -138,21 +143,21 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 20,
-    color: white,
+    color: c.white,
     alignSelf: 'center',
   },
   buttonPrimary: {
     fontSize: 20,
-    color: primary,
+    color: c.primary,
     alignSelf: 'center',
   },
   deckTitle: {
     fontSize: 33,
-    color: primary,
+    color: c.primary,
   },
   deckSubtitle: {
     fontSize: 18,
-    color: primaryLight,
+    color: c.primaryLight,
   },
   button: {
     height: 56,
@@ -164,15 +169,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   success: {
-    backgroundColor: secondary,
-    borderColor: secondaryDark,
+    backgroundColor: c.secondary,
+    borderColor: c.secondaryDark,
   },
   danger: {
-    backgroundColor: alt,
-    borderColor: altDark,
+    backgroundColor: c.alt,
+    borderColor: c.altDark,
   },
   primary: {
-    borderColor: primaryDark,
+    borderColor: c.primaryDark,
   },
 })
 

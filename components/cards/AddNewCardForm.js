@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import t from 'tcomb-form-native' // 0.6.9
+import PropTypes from 'prop-types'
+import t from 'tcomb-form-native'
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native'
 import { primary, secondaryLight, secondary } from '../../utils/colors'
 
@@ -13,7 +14,7 @@ const Card = t.struct({
 class AddNewCardForm extends Component {
   onSubmitHandler = () => {
     const value = this.form.getValue()
-    this.props.onSubmitForm(value)
+    if (value) this.props.onSubmitForm(value)
   }
   render() {
     return (
@@ -37,7 +38,9 @@ class AddNewCardForm extends Component {
     )
   }
 }
-
+AddNewCardForm.propTypes = {
+  onSubmitForm: PropTypes.func.isRequired,
+}
 const styles = StyleSheet.create({
   labelName: {
     fontSize: 33,
