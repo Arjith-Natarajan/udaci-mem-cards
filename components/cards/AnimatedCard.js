@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity,TouchableHighlight, Animated } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons' // eslint-disable-line import/no-extraneous-dependencies
 import { Card } from 'react-native-elements'
-import { primary, primaryLight, altLight, white } from '../../utils/colors'
+import { primary, primaryLight, altLight, white, secondaryLight, secondaryDark, secondary, alt, altDark } from '../../utils/colors'
 
 const fixedMaxHeightCard = 320
 class AnimatedCard extends Component {
@@ -28,6 +28,14 @@ class AnimatedCard extends Component {
       }),
     ]).start()
   }
+  closeCard() {
+    Animated.stagger(0, [
+      Animated.timing(this.animatedHeightValue, {
+        toValue: 0,
+        duration: 0,
+      }),
+    ]).start()
+  }
   render() {
     const { question, answer } = this.props
     const animatedHeightStyle = {
@@ -35,7 +43,7 @@ class AnimatedCard extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={[styles.flashCardFront]}>
+        <View style={styles.container}><View style={[styles.flashCardFront]}>
           <Card title="Question" containerStyle={[styles.flashCard, styles.question]}>
             <Text style={styles.title}>{question}</Text>
             <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
@@ -60,6 +68,30 @@ class AnimatedCard extends Component {
             </View>
           </Card>
         </Animated.View>
+        </View>
+        <View style={[styles.container,{flex:1, justifyContent:'flex-end'}]}>
+          <TouchableHighlight
+            style={[styles.button, styles.danger]}
+            underlayColor={altLight}
+            onPress={() =>  {
+              this.closeCard()
+              this.props.answerQuestion(false)
+            }}
+          >
+            <Text style={styles.buttonText}>WRONG</Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight
+            style={[styles.button, styles.success]}
+            underlayColor={secondaryLight}
+            onPress={() => {
+              this.closeCard()
+              this.props.answerQuestion(true)
+            }}
+          >
+            <Text style={styles.buttonText}>RIGHT</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
@@ -80,6 +112,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     color: primary,
   },
+  buttonText: {
+    fontSize: 20,
+    color: white,
+    alignSelf: 'center',
+  },
   subtitle: {
     fontSize: 18,
     color: primaryLight,
@@ -91,6 +128,15 @@ const styles = StyleSheet.create({
   },
   question: {
     // backgroundColor: primaryLight,
+  },
+  button: {
+    height: 56,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderWidth: 2,
+    borderRadius: 8,
+    marginBottom: 10,
+    justifyContent: 'center',
   },
   answer: {
     backgroundColor: white,
@@ -105,6 +151,14 @@ const styles = StyleSheet.create({
   flashCardFront: {
     width: 300,
     height: fixedMaxHeightCard,
+  },
+  success: {
+    backgroundColor: secondary,
+    borderColor: secondaryDark,
+  },
+  danger: {
+    backgroundColor: alt,
+    borderColor: altDark,
   },
 })
 

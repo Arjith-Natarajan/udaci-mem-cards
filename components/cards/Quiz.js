@@ -72,24 +72,7 @@ class Quiz extends Component {
           <Text style={styles.deckSubtitle}>
             Question {questionIndex} of {totalQuestions}
           </Text>
-          <AnimatedCard question={currentQuestion.question} answer={currentQuestion.answer} />
-        </View>
-        <View style={{ flex: 1, justifyContent: 'flex-end', paddingHorizontal: 20 }}>
-          <TouchableHighlight
-            style={[styles.button, styles.danger]}
-            underlayColor={c.altLight}
-            onPress={() => this.answerQuestion(false)}
-          >
-            <Text style={styles.buttonText}>WRONG</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            style={[styles.button, styles.success]}
-            underlayColor={c.secondaryLight}
-            onPress={() => this.answerQuestion(true)}
-          >
-            <Text style={styles.buttonText}>RIGHT</Text>
-          </TouchableHighlight>
+          <AnimatedCard answerQuestion={(flag) => {this.answerQuestion(flag)}} question={currentQuestion.question} answer={currentQuestion.answer} />
         </View>
       </View>
     ) : (
