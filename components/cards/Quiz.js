@@ -72,7 +72,13 @@ class Quiz extends Component {
           <Text style={styles.deckSubtitle}>
             Question {questionIndex} of {totalQuestions}
           </Text>
-          <AnimatedCard answerQuestion={(flag) => {this.answerQuestion(flag)}} question={currentQuestion.question} answer={currentQuestion.answer} />
+          <AnimatedCard
+            answerQuestion={(flag) => {
+              this.answerQuestion(flag)
+            }}
+            question={currentQuestion.question}
+            answer={currentQuestion.answer}
+          />
         </View>
       </View>
     ) : (
@@ -150,14 +156,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 10,
     justifyContent: 'center',
-  },
-  success: {
-    backgroundColor: c.secondary,
-    borderColor: c.secondaryDark,
-  },
-  danger: {
-    backgroundColor: c.alt,
-    borderColor: c.altDark,
   },
   primary: {
     borderColor: c.primaryDark,

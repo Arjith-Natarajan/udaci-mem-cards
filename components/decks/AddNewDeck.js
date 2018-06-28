@@ -29,7 +29,7 @@ class AddNewDeck extends Component {
           onSubmitForm={(deckName) => {
             const deckId = v4()
             onCreateDeck({ deckId, ...deckName })
-            navigation.navigate('DeckDetailScreen', { deckId, ...deckName })
+            navigation.replace('DeckDetailScreen', { deckId, ...deckName })
           }}
         />
       </View>

@@ -1,9 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, TouchableOpacity,TouchableHighlight, Animated } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableHighlight,
+  Animated,
+} from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons' // eslint-disable-line import/no-extraneous-dependencies
 import { Card } from 'react-native-elements'
-import { primary, primaryLight, altLight, white, secondaryLight, secondaryDark, secondary, alt, altDark } from '../../utils/colors'
+import {
+  primary,
+  primaryLight,
+  altLight,
+  white,
+  secondaryLight,
+  secondaryDark,
+  secondary,
+  alt,
+  altDark,
+} from '../../utils/colors'
 
 const fixedMaxHeightCard = 320
 class AnimatedCard extends Component {
@@ -43,37 +60,38 @@ class AnimatedCard extends Component {
     }
     return (
       <View style={styles.container}>
-        <View style={styles.container}><View style={[styles.flashCardFront]}>
-          <Card title="Question" containerStyle={[styles.flashCard, styles.question]}>
-            <Text style={styles.title}>{question}</Text>
-            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
-              <TouchableOpacity onPress={() => this.flashCard()}>
-                <Text style={styles.subtitle}>show Answer</Text>
-              </TouchableOpacity>
-            </View>
-          </Card>
+        <View style={styles.container}>
+          <View style={[styles.flashCardFront]}>
+            <Card title="Question" containerStyle={[styles.flashCard, styles.question]}>
+              <Text style={styles.title}>{question}</Text>
+              <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'flex-end' }}>
+                <TouchableOpacity onPress={() => this.flashCard()}>
+                  <Text style={styles.subtitle}>show Answer</Text>
+                </TouchableOpacity>
+              </View>
+            </Card>
+          </View>
+          <Animated.View style={[styles.flashCardBack, animatedHeightStyle]}>
+            <Card title="Answer" containerStyle={[styles.flashCard, styles.answer]}>
+              <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+                <MaterialCommunityIcons name="lightbulb-on-outline" size={65} color={altLight} />
+              </View>
+              <View style={{ flex: 1, alignSelf: 'center' }}>
+                <Text style={styles.title}>{answer}</Text>
+              </View>
+              <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
+                <TouchableOpacity onPress={() => this.unflashCard()}>
+                  <Text style={styles.subtitle}>show Question</Text>
+                </TouchableOpacity>
+              </View>
+            </Card>
+          </Animated.View>
         </View>
-        <Animated.View style={[styles.flashCardBack, animatedHeightStyle]}>
-          <Card title="Answer" containerStyle={[styles.flashCard, styles.answer]}>
-            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
-              <MaterialCommunityIcons name="lightbulb-on-outline" size={65} color={altLight} />
-            </View>
-            <View style={{ flex: 1, alignSelf: 'center' }}>
-              <Text style={styles.title}>{answer}</Text>
-            </View>
-            <View style={{ flex: 1, alignSelf: 'center', justifyContent: 'center' }}>
-              <TouchableOpacity onPress={() => this.unflashCard()}>
-                <Text style={styles.subtitle}>show Question</Text>
-              </TouchableOpacity>
-            </View>
-          </Card>
-        </Animated.View>
-        </View>
-        <View style={[styles.container,{flex:1, justifyContent:'flex-end'}]}>
+        <View style={[styles.container, { flex: 1, justifyContent: 'flex-end' }]}>
           <TouchableHighlight
             style={[styles.button, styles.danger]}
             underlayColor={altLight}
-            onPress={() =>  {
+            onPress={() => {
               this.closeCard()
               this.props.answerQuestion(false)
             }}
@@ -100,6 +118,7 @@ class AnimatedCard extends Component {
 AnimatedCard.propTypes = {
   question: PropTypes.string.isRequired,
   answer: PropTypes.string.isRequired,
+  answerQuestion: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({

@@ -19,7 +19,6 @@ export const getNextObj = (o, id) => {
   idIndex += 1
   const nextIndex = idIndex
   if (nextIndex >= keys.length) {
-    // we&#x27;re at the end, there is no next
     return undefined
   }
   const nextKey = keys[nextIndex]
@@ -33,7 +32,6 @@ export const getPreviousObj = (o, id) => {
   idIndex -= 1
   const nextIndex = idIndex
   if (idIndex === 0) {
-    // we&#x27;re at the beginning, there is no previous
     return undefined
   }
   const nextKey = keys[nextIndex]
@@ -43,34 +41,27 @@ export const getPreviousObj = (o, id) => {
 export const computeScore = (crctlyAnsweredQuestions, totalQuestions) =>
   `${((crctlyAnsweredQuestions / totalQuestions) * 100).toFixed(2)} %`
 
-export function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync)
-}
+export const clearLocalNotification = () =>
+  AsyncStorage.removeItem(NOTIFICATION_KEY).then(Notifications.cancelAllScheduledNotificationsAsync)
 
-function createNotification() {
-  return {
-    title: "Hey let's flash some cards",
-    body: "👋 don't forget to Study today",
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true,
-    },
-  }
-}
+const createNotification = () => ({
+  title: "Hey let's flash some cards",
+  body: "👋 don't forget to Study today",
+  android: {
+    sound: true,
+    priority: 'high',
+    sticky: false,
+    vibrate: true,
+  },
+})
 
-export function setLocalNotification() {
+export const setLocalNotification = () => {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then((data) => {
-      console.log('Retrived Data from AsyncStorage', data)
       if (data === null) {
-        console.log('Retrived Data found to be null, asking Permissions')
         Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
-          console.log('User Entered Permissions')
           if (status === 'granted') {
-            console.log('User granted Permissions')
             Notifications.cancelAllScheduledNotificationsAsync()
 
             const tomorrow = new Date()
@@ -82,7 +73,6 @@ export function setLocalNotification() {
               time: tomorrow,
               repeat: 'day',
             })
-            console.log('Setting notification')
             AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           }
         })

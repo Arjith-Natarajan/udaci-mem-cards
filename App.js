@@ -14,7 +14,6 @@ class App extends Component {
     if (typeof global.self === 'undefined') {
       global.self = global
     }
-    console.log(this.props) // prints out whatever is inside props
   }
 
   render() {
